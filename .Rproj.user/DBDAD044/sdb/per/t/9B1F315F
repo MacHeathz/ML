@@ -1,0 +1,18 @@
+{
+    "contents" : "library(data.table)\n# Multivariate Regression\nJ_Multi <- function () {}\ngradientDescentMulti <- function () {}\nnormalizeData <- function () {}\n\n# data sets\nChildren <- data.table(\n    age = c(4, 9, 5),\n    height = c(89, 124, 103),\n    weight = c(16, 28, 20)\n)\nHousing <- data.table(\n    size = c(2104, 1416, 1534, 852),\n    bedrooms = c(5, 3, 3, 2),\n    floors = c(1, 2, 2, 1),\n    age = c(45, 40, 30, 36),\n    price = c(460, 232, 315, 178)\n)\nExams <- data.table(\n    midterm = c(89, 72, 94, 69),\n    midterm_squared = c(7921, 5184, 8836, 4761),\n    final = c(96, 74, 87, 78)\n)\n\n\n# Polynomial Regression\n\n# Normal Equation\nnormal_equation <- function(X, y) {\n    t_X = t(X)\n    theta = as.matrix(t_X*X) * as.vector(t_X*y)\n    return(theta)\n}\n\nsolve_children <- function () {\n    X <- cbind(rep(1,3), Children[,list(age,height)])\n    y <- Children[, list(height)]\n    normal_equation(X, y)\n}\nget_weightprediction <- function () {\n    thetas <- solve_children()\n    \n    function (age, height) {\n        thetas[1] + thetas[2]*age + thetas[3]*height\n    }\n}",
+    "created" : 1441485867834.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "241755808",
+    "id" : "9B1F315F",
+    "lastKnownWriteTime" : 1441658088,
+    "path" : "~/R/Coursera/ML/Week2.R",
+    "project_path" : "Week2.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

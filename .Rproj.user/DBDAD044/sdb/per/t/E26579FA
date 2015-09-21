@@ -1,0 +1,18 @@
+{
+    "contents" : "## Univariate Linear Regression with Gradient Descent\n\n# Some datasets to test.\ntest1 <- data.frame(\n    x = c(0,1,2,3),\n    y = c(4,7,7,8)\n)\n\n#  The h(x) function to fit is 0 + 0.5x\nstudent_grades <- data.frame(\n            x = c(1, 2, 4, 0, 16, 24),\n            y = c(0.5, 1, 2, 0, 8, 12)\n         )\n\n# Linear Regression Model, hypothesis function\nh <- function (t0, t1, x) {\n    t0 + (t1 * x)\n}\n\n# Cost function\nJ <- function (dataset) {\n    m <- nrow(dataset)\n    errors <- dataset$error\n    1/(2*m) * sum(errors^2)\n}\ndetermine_errors <- function (t0, t1, data_set) {\n    predictors <- data_set[,1]\n    predictions <- h(t0, t1, data_set[,1])\n    answers <- data_set[,2]\n    errors <- apply(cbind(predictions, answers), 1, function(row) { row[1] - row[2] })\n    data.frame(predictor = predictors,\n                     prediction = predictions,\n                     answer = answers,\n                     error = errors\n                    )\n}\n\n# Gradient Descent: finds the ultimate theta parameters for given dataset\nupdate_theta <- function (j, alpha, slope) {\n    j <- j - alpha * slope\n}\ndetermine_slope <- function (error_data, use_x = FALSE) {\n    m <- nrow(error_data)\n    1/m * sum(apply(error_data, 1, function (row) {\n        error <- row[\"error\"]\n        x <- row[\"predictor\"]\n        if (use_x) return(error*x)\n        else return(error)\n    }))\n}\ngradient_descent <- function (data_set, learning_rate = 0.01) {\n    # start with params = 0\n    alpha <- learning_rate\n    t0 <- 0\n    t1 <- 0\n    SSE <- Inf\n    iterations <- 0\n\n    repeat {\n        error_data <- determine_errors(t0, t1, data_set)\n        \n        new_SSE <- J(error_data)\n        \n        if (new_SSE >= SSE || abs(SSE - new_SSE) < 1e-15) { break }\n        else { SSE = new_SSE }\n        \n        slope_t0 <- determine_slope(error_data)\n        slope_t1 <- determine_slope(error_data, TRUE)\n        \n        t0 <- update_theta(t0, alpha, slope_t0)\n        t1 <- update_theta(t1, alpha, slope_t1)\n        \n        iterations <- iterations + 1\n    }\n    \n    list(t0 = t0, t1 = t1, SSE = SSE, iterations = iterations, learning_rate = alpha)\n}",
+    "created" : 1441469094960.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "837834073",
+    "id" : "E26579FA",
+    "lastKnownWriteTime" : 1441486648,
+    "path" : "~/R/Coursera/ML/Week1.R",
+    "project_path" : "Week1.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : true,
+    "type" : "r_source"
+}
