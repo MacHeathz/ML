@@ -54,15 +54,15 @@ end
 %% Can be run by using: 'test lrCostFunction' in Octave
 
 %!shared theta, X, y, tol
-%! theta = [-2 -1 1 2]';
+%! theta = [-2; -1; 1; 2];
 %! X = [ones(3,1) magic(3)];
-%! y = [1 0 1]';
-%! tol = 5e-05
+%! y = [1; 0; 1] >= 0.5;
+%! tol = 5e-05;
 
 %!test
 %! [j g] = lrCostFunction(theta, X, y, 3);
 %! assert(j, 7.6832, tol);
-%! assert(g, [0.3172 -0.1277 2.6481 4.2379]', tol)
+%! assert(g, [0.31722 -0.12768 2.64812 4.23787]', tol);
 
 %!test
 %! [j g] = lrCostFunction(theta, X, y, 5);

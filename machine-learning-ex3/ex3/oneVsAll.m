@@ -62,3 +62,19 @@ end
 % =========================================================================
 
 end
+
+%% Define unit tests, see also https://www.gnu.org/software/octave/doc/interpreter/Test-Functions.html
+%% Can be run by using: 'test oneVsAll' in Octave
+
+%!test
+%! X = [magic(3); sin(1:3); cos(1:3)];
+%! y = [1; 2; 2; 1; 3];
+%! num_labels = 3;
+%! lambda = 0.1;
+%! tol = 5e-06;
+%! [all_theta] = oneVsAll(X, y, num_labels, lambda);
+%! assert(all_theta(1,:), [-0.559478 0.619220 -0.550361 -0.093502], tol);
+%! assert(all_theta(2,:), [-5.472920 -0.471565 1.261046 0.634767], tol);
+%! assert(all_theta(3,:), [0.068368 -0.375582 -1.652262 -1.410138], tol);
+
+

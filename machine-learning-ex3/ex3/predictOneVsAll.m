@@ -38,3 +38,14 @@ p = ix';
 % =========================================================================
 
 end
+
+%% Define unit tests, see also https://www.gnu.org/software/octave/doc/interpreter/Test-Functions.html
+%% Can be run by using: 'test predictOneVsAll' in Octave
+
+%!test
+%! all_theta = [1 -6 3; -2 4 -3];
+%! X = [1 7; 4 5; 7 8; 1 4];
+%! p = predictOneVsAll(all_theta, X);
+%! assert(p, [1;2;2;1]);
+
+
