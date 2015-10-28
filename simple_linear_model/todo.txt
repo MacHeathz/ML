@@ -1,0 +1,9 @@
+STUFF TO ADD
+ XXX Repartition (randomly) train/val/test data as 60/20/20 percentages.
+ XXX Automatically determine polynomial degree p, just like lambda, by calculating and plotting p (for example, 1:12) against the error. See also ex 2/3 polyFeature function for expanding multiple x's.
+ XXX Automatically choose lambda and p using min() and ix to get and return value at the corresponding index.
+ XXX Plot all data points and endresult of model at the end
+ XXX Somehow prevent the model from underfitting by testing p / lambda combinations
+ * Implement gradient descent for large datasets
+ * Cleanup code, remove cruft etc.
+

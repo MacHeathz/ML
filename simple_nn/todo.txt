@@ -1,0 +1,8 @@
+STUFF TO ADD
+ * Partition data in train, val and test data (60/20/20)
+ * Use layer_size vector to initialize theta's for different amounts of layers
+ * Automatically choose complexity, number of hidden units/layers a la ex5
+ * Automatically choose lambda regularization parameter a la ex5
+ * Use gradient descent for large datasets, fminunc otherwise
+ * Plot learning curves
+
