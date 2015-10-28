@@ -40,9 +40,9 @@ h_x = sigmoid(X * theta);
 temp = theta;
 temp(1) = 0; % We don't want to reqularize theta_0
 
-J = -1/m * (log(h_x)' * y + log(1 - h_x)' * (1 - y)) + lambda / (2*m) * sum(temp .^ 2);
+J = -1/m * (log(h_x)' * y + log(1 - h_x)' * (1 - y)) + (lambda / (2*m)) * sum(temp .^ 2);
 
-grad = 1/m * X' * (h_x - y) + lambda / m * temp;
+grad = 1/m * X' * (h_x - y) + (lambda / m) * temp;
 
 % =============================================================
 

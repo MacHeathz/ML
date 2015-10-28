@@ -24,7 +24,7 @@ X = [ones(m, 1) X];
 %
 % Hint: theta(:) will return a column vector.
 %
-% Hint: You can use y == c to obtain a vector of 1's and 0's that tell use 
+% Hint: You can use y == c to obtain a vector of 1's and 0's that tell us 
 %       whether the ground truth is true/false for this class.
 %
 % Note: For this assignment, we recommend using fmincg to optimize the cost
@@ -71,10 +71,10 @@ end
 %! y = [1; 2; 2; 1; 3];
 %! num_labels = 3;
 %! lambda = 0.1;
-%! tol = 5e-06;
+%! tol = 5e-05;
 %! [all_theta] = oneVsAll(X, y, num_labels, lambda);
 %! assert(all_theta(1,:), [-0.559478 0.619220 -0.550361 -0.093502], tol);
-%! assert(all_theta(2,:), [-5.472920 -0.471565 1.261046 0.634767], tol);
+%! assert(all_theta(2,:), [-5.4755 -0.47146 1.2613 0.63496], tol);
 %! assert(all_theta(3,:), [0.068368 -0.375582 -1.652262 -1.410138], tol);
 
 

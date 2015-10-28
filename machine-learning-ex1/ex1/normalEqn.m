@@ -12,6 +12,8 @@ theta = zeros(size(X, 2), 1);
 
 % ---------------------- Sample Solution ----------------------
 
+% Put X transposed in a variable since for large datasets it
+% would be computationally expensive to do this multiple times.
 t_X = X';
 theta = pinv(t_X*X) * t_X*y;
 

@@ -24,7 +24,7 @@ Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):en
 
 % Setup some useful variables
 m = size(X, 1);
-         
+
 % You need to return the following variables correctly 
 J = 0;
 Theta1_grad = zeros(size(Theta1));
@@ -62,23 +62,44 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% size(X) = 5000 x 400
+% size(Theta1) = 25 x 401
+% size(Theta2) = 10 x 26
 
+a1 = [ones(m, 1) X]; % size(a1) = 5000 x 401
+z2 = a1 * Theta1'; % size(z2) = 5000 x 25
+a2 = [ones(m, 1) sigmoid(z2)]; % size(a2) = 5000 x 26
+z3 = a2 * Theta2'; % size(z3) = 5000 x 10
+h_x = a3 = sigmoid(z3); % size(h_x) = 5000 x 10
 
+% Map the ground truth y to vectors of 0,1 values
+yk = eye(num_labels)(y,:); % size(yk) = 5000 x 10
 
+% We don't need the original thetas anymore so for correct
+% regularization, let's set the bias column to 0.
+Theta1(:,1) = 0;
+Theta2(:,1) = 0;
 
+cpos = log(h_x) .* yk; % size(cpos) = 5000 x 10
+cneg = log(1-h_x) .* (1-yk); % size(cneg) = 5000 x 10
+costs = (-1/m) * (cpos + cneg); % size(costs) = 5000 x 10
+reg = (lambda / (2*m)) * (sum(sum(Theta1.^2)) + sum(sum(Theta2.^2)));
+costs_per_label = sum(costs); % size(s1) = 1 x 10
+J = sum(costs_per_label) + reg; % size(J) = 1 x 1
 
+% Gradient calculation (vectorized)
+d_3 = h_x - yk; % size(d_3) = 5000 x 10
+d_2 = (d_3 * Theta2(:,2:end)) .* sigmoidGradient(z2); % size(d_2) = 5000 x 25
 
+Delta1 = d_2' * a1; % size(Delta1) = size(Theta1_grad) = size(Theta1) = 25 x 401
+Delta2 = d_3' * a2; % size(Delta2) = size(Theta2_grad) = size(Theta2) = 10 x 26
 
+Theta1_grad = (1/m) * Delta1;
+Theta2_grad = (1/m) * Delta2;
 
-
-
-
-
-
-
-
-
-
+% Adding regularization except for the first (bias) column
+Theta1_grad += ((lambda / m) * Theta1);
+Theta2_grad += ((lambda / m) * Theta2);
 
 % -------------------------------------------------------------
 
@@ -87,5 +108,25 @@ Theta2_grad = zeros(size(Theta2));
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
-
 end
+
+%!shared il, hl, nl, nn, X, y, lambda, tol
+%! il = 2;              % input layer
+%! hl = 2;              % hidden layer
+%! nl = 4;              % number of labels
+%! nn = [ 1:18 ] / 10;  % nn_params
+%! X = cos([1 2 ; 3 4 ; 5 6]);
+%! y = [4; 2; 3];
+%! lambda = 4;
+%! tol = 5e-05;
+
+%!test                  % testcase w/o regularization, lambda == 0
+%! [J grad] = nnCostFunction(nn, il, hl, nl, X, y, 0);
+%! assert(J, 7.4070, tol);
+%! assert(grad, [0.766138; 0.979897; -0.027540; -0.035844; -0.024929; -0.053862; 0.883417; 0.568762; 0.584668; 0.598139; 0.459314; 0.344618; 0.256313; 0.311885; 0.478337; 0.368920; 0.259771; 0.322331], tol);
+
+%!test
+%! [J grad] = nnCostFunction(nn, il, hl, nl, X, y, lambda);
+%! assert(J, 19.474, 5e-04);
+%! assert(grad, [0.76614; 0.97990; 0.37246; 0.49749; 0.64174; 0.74614; 0.88342; 0.56876; 0.58467; 0.59814; 1.92598; 1.94462; 1.98965; 2.17855; 2.47834; 2.50225; 2.52644; 2.72233], tol);
+

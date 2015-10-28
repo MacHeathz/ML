@@ -20,9 +20,9 @@ grad = zeros(size(theta));
 h_x = sigmoid(X * theta);
 theta(1) = 0; % We don't want to regularize theta_0
 
-J = -1/m * (log(h_x)' * y + log(1 - h_x)' * (1 - y)) + lambda / (2*m) * sum(theta .^ 2);
+J = -1/m * (log(h_x)' * y + log(1 - h_x)' * (1 - y)) + (lambda / (2*m)) * sum(theta .^ 2);
 
-grad = 1/m * X' * (h_x - y) + lambda / m * theta;
+grad = 1/m * X' * (h_x - y) + (lambda / m) * theta;
 
 % =============================================================
 
