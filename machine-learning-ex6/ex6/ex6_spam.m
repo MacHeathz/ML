@@ -70,10 +70,16 @@ load('spamTrain.mat');
 fprintf('\nTraining Linear SVM (Spam Classification)\n')
 fprintf('(this may take 1 to 2 minutes) ...\n')
 
-C = 0.1;
-model = svmTrain(X, y, C, @linearKernel);
+%C = 0.1;
+%model = svmTrain(X, y, C, @linearKernel);
 
-p = svmPredict(model, X);
+trainOpts = "-s 0 -t 0 -c 0.1 -q";
+model = svmtrain(y, X, trainOpts);
+
+%p = svmPredict(model, X);
+
+predOpts = "-b 0 -q";
+[p, accuracy, decision_values] = svmpredict(y, X, model, predOpts);
 
 fprintf('Training Accuracy: %f\n', mean(double(p == y)) * 100);
 
@@ -87,9 +93,13 @@ load('spamTest.mat');
 
 fprintf('\nEvaluating the trained Linear SVM on a test set ...\n')
 
-p = svmPredict(model, Xtest);
+%p = svmPredict(model, Xtest);
+predOpts = "-b 0 -q";
+[p, accuracy, decision_values] = svmpredict(ytest, Xtest, model, predOpts);
 
 fprintf('Test Accuracy: %f\n', mean(double(p == ytest)) * 100);
+fprintf('\n\n');
+fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
 
 
@@ -101,8 +111,13 @@ pause;
 %  'thinks' that these words are the most likely indicators of spam.
 %
 
-% Sort the weights and obtin the vocabulary list
-[weight, idx] = sort(model.w, 'descend');
+% Sort the weights and obtain the vocabulary list
+bias = -model.rho;
+fprintf("The bias is: %f \n", bias);
+
+model_weights = (model.sv_coef' * full(model.SVs));
+% help: http://stackoverflow.com/questions/10131385/matlab-libsvm-how-to-find-the-w-coefficients
+[weight, idx] = sort(model_weights, 'descend');
 vocabList = getVocabList();
 
 fprintf('\nTop predictors of spam: \n');
@@ -125,14 +140,15 @@ pause;
 % Set the file to be read in (change this to spamSample2.txt,
 % emailSample1.txt or emailSample2.txt to see different predictions on
 % different emails types). Try your own emails as well!
-filename = 'spamSample1.txt';
+filename = 'emailSample2.txt';
 
 % Read and predict
 file_contents = readFile(filename);
 word_indices  = processEmail(file_contents);
 x             = emailFeatures(word_indices);
-p = svmPredict(model, x);
+%p = svmPredict(model, x);
+predOpts = "-b 0 -q";
+[p, accuracy, decision_values] = svmpredict(ones(length(x),1), x, model, predOpts);
 
 fprintf('\nProcessed %s\n\nSpam Classification: %d\n', filename, p);
 fprintf('(1 indicates spam, 0 indicates not spam)\n\n');
-
