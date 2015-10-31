@@ -12,8 +12,10 @@ x2plot = linspace(min(X(:,2)), max(X(:,2)), 100)';
 [X1, X2] = meshgrid(x1plot, x2plot);
 vals = zeros(size(X1));
 for i = 1:size(X1, 2)
-   this_X = [X1(:, i), X2(:, i)];
-   vals(:, i) = svmPredict(model, this_X);
+   this_X = [X1(:, 1), X2(:, 1)];
+   this_y = repmat(y(1), 100, 1);
+   %vals(:, i) = svmPredict(model, this_X);
+   vals(:, i) = svmpredict(this_y, this_X, model, "-q");
 end
 
 % Plot the SVM boundary

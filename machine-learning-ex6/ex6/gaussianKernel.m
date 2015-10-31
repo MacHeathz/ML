@@ -14,10 +14,9 @@ sim = 0;
 %               and x2 computed using a Gaussian kernel with bandwidth
 %               sigma
 %
-%
 
 Diff = x1-x2; % Only calculate this once
-sim = exp(-1 * (Diff'*Diff) / (2*(sigma^2)));
+sim = exp((-1/(2*(sigma^2))) * (Diff'*Diff));
 
 % =============================================================
     
