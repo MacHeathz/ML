@@ -23,7 +23,7 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
-Cs = sigmas = [ 0.001; 0.003; 0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30 ];
+Cs = sigmas = [ 0.001 ; 0.003 ; 0.01 ; 0.03 ; 0.1 ; 0.3 ; 1 ; 3 ; 10 ; 30 ];
 
 highest_acc = 0; best_C = 0; best_sigma = 0;
 

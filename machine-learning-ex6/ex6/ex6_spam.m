@@ -70,13 +70,9 @@ load('spamTrain.mat');
 fprintf('\nTraining Linear SVM (Spam Classification)\n')
 fprintf('(this may take 1 to 2 minutes) ...\n')
 
-%C = 0.1;
-%model = svmTrain(X, y, C, @linearKernel);
-
-trainOpts = "-s 0 -t 0 -c 0.1 -q";
+C = 0.1;
+trainOpts = ["-s 0 -t 0 -c " num2str(C) " -q"];
 model = svmtrain(y, X, trainOpts);
-
-%p = svmPredict(model, X);
 
 predOpts = "-b 0 -q";
 [p, accuracy, decision_values] = svmpredict(y, X, model, predOpts);
@@ -93,7 +89,6 @@ load('spamTest.mat');
 
 fprintf('\nEvaluating the trained Linear SVM on a test set ...\n')
 
-%p = svmPredict(model, Xtest);
 predOpts = "-b 0 -q";
 [p, acc, dec] = svmpredict(ytest, Xtest, model, predOpts);
 
@@ -140,13 +135,12 @@ pause;
 % Set the file to be read in (change this to spamSample2.txt,
 % emailSample1.txt or emailSample2.txt to see different predictions on
 % different emails types). Try your own emails as well!
-filename = 'spamSample1.txt';
+filename = 'emailSample1.txt';
 
 % Read and predict
 file_contents = readFile(filename);
 word_indices  = processEmail(file_contents);
 x             = emailFeatures(word_indices)'; % size(x) = 1 x 1899
-%p = svmPredict(model, x');
 predOpts = "-b 0 -q";
 [p, acc, dec] = svmpredict(0, x, model, predOpts);
 

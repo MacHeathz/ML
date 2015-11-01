@@ -35,7 +35,7 @@ load('ex6data1.mat');
 plotData(X, y);
 
 fprintf('Program paused. Press enter to continue.\n');
-%%pause;
+pause;
 
 %% ==================== Part 2: Training Linear SVM ====================
 %  The following code will train a linear SVM on the dataset and plot the
@@ -51,8 +51,7 @@ fprintf('\nTraining Linear SVM ...\n')
 % You should try to change the C value below and see how the decision
 % boundary varies (e.g., try C = 1000)
 C = 1;
-	%model = svmTrain(X, y, C, @linearKernel, 1e-3, 20);
-options = ["-t 0 -s 0 -c " num2str(C)];
+options = ["-qs 0 -t 0 -c " num2str(C)];
 model = svmtrain(y, X, options);
 
 % Sort out the bias and weights for use in visualizeBoundaryLinear function
@@ -111,11 +110,9 @@ C = 1; sigma = 0.1;
 % We set the tolerance and max_passes lower here so that the code will run
 % faster. However, in practice, you will want to run the training to
 % convergence.
-%model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma)); 
-
 gamma = 1/(2*(sigma^2));
-options = ["-t 0 -s 2 -g " num2str(gamma) " -c " num2str(C)];
-model = svmtrain(y, X, options);
+options = ["-qs 0 -t 2 -g " num2str(gamma) " -c " num2str(C)];
+model = svmtrain(y,X, options);
 
 visualizeBoundary(X, y, model);
 
@@ -157,10 +154,8 @@ fprintf('Program paused. Press enter to continue.\n');
 pause;
 
 % Train the SVM
-%model= svmTrain(X, y, C, @(x1, x2) gaussianKernel(x1, x2, sigma));
-
 gamma = 1/(2*(sigma^2));
-model = svmtrain(y, X, ['-s 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(C)]);
+model = svmtrain(y, X, ['-qs 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(C)]);
 
 visualizeBoundary(X, y, model);
 
