@@ -24,19 +24,14 @@ sigma = 0.3;
 %
 
 Cs = sigmas = [ 0.001; 0.003; 0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30 ];
-%errors = zeros(length(Cs), length(sigmas));
 
-highest_acc = 0; best_C = 0; best_sigma = 0
+highest_acc = 0; best_C = 0; best_sigma = 0;
 
 for c = 1:length(Cs)
 	cur_c = Cs(c);
-	fprintf('Using C: %f (%f)\n', c, cur_c);
 	for s = 1:length(sigmas)
-		fprintf('Using sigma: %f (%f)\n', s, sigmas(s));
-		%model = svmTrain(X, y, cur_c, @(x1, x2) gaussianKernel(x1, x2, sigmas(s))); 
     gamma = 1/(2*(sigmas(s)^2));
-    model = svmtrain(X, y, ['-s 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(cur_c)]);
-		%predictions = svmPredict(model, Xval);	
+    model = svmtrain(y, X, ['-q -s 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(cur_c)]);
     [predictions, acc, dec] = svmpredict(yval, Xval, model, "-q");
 		if (acc(1) > highest_acc)
       highest_acc = acc(1);
@@ -45,13 +40,6 @@ for c = 1:length(Cs)
     end
 	end
 end
-
-% Find the row, col number of the lowest value in the error matrix
-%idx = nthargout(2, @min, errors(:));
-%[row, col] = ind2sub(size(errors), idx);
-
-%C = Cs(row);
-%sigma = sigmas(col);
 
 C = best_C;
 sigma = best_sigma;

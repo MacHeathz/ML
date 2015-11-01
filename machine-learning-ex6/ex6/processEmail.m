@@ -98,7 +98,7 @@ while ~isempty(email_contents)
     %
 
     % Let's be smart and use some standard Octave functions:
-    % ismember returns a vector of zeroes of length(vocabList) a 1 at
+    % ismember returns a vector of zeroes of length(vocabList) with a 1 at
     %          the place where the vocabList element matches str.
     % find     returns the index in a vector where the element is 1.
     idx = find(ismember(vocabList, str));

@@ -50,9 +50,9 @@ fprintf('\nTraining Linear SVM ...\n')
 
 % You should try to change the C value below and see how the decision
 % boundary varies (e.g., try C = 1000)
-%C = 1;
+C = 1;
 	%model = svmTrain(X, y, C, @linearKernel, 1e-3, 20);
-options = strcat("-t 0 -s 0 -c 1");
+options = ["-t 0 -s 0 -c " num2str(C)];
 model = svmtrain(y, X, options);
 
 % Sort out the bias and weights for use in visualizeBoundaryLinear function
