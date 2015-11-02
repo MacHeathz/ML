@@ -22,7 +22,7 @@ hold on
 %contour(X1, X2, vals, [0 0], 'Color', 'b');
 %contour(X1, X2, vals, [1 1], 'linecolor', 'blue');
 %contour(X1, X2, vals);
-contour(X1, X2, vals, [1 1], 'b');
+contour(X1, X2, vals, [1 1], 'LineColor', 'b');
 hold off;
 
 end

@@ -51,7 +51,7 @@ fprintf('\nTraining Linear SVM ...\n')
 % You should try to change the C value below and see how the decision
 % boundary varies (e.g., try C = 1000)
 C = 1;
-options = ["-qs 0 -t 0 -c " num2str(C)];
+options = ["-q -h 1 -s 0 -t 0 -c " num2str(C)];
 model = svmtrain(y, X, options);
 
 % Sort out the bias and weights for use in visualizeBoundaryLinear function
@@ -111,7 +111,7 @@ C = 1; sigma = 0.1;
 % faster. However, in practice, you will want to run the training to
 % convergence.
 gamma = 1/(2*(sigma^2));
-options = ["-qs 0 -t 2 -g " num2str(gamma) " -c " num2str(C)];
+options = ["-q -h 1 -s 0 -t 2 -g " num2str(gamma) " -c " num2str(C)];
 model = svmtrain(y,X, options);
 
 visualizeBoundary(X, y, model);
@@ -155,10 +155,12 @@ pause;
 
 % Train the SVM
 gamma = 1/(2*(sigma^2));
-model = svmtrain(y, X, ['-qs 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(C)]);
+model = svmtrain(y, X, ['-q -h 1 -s 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(C)]);
 
 visualizeBoundary(X, y, model);
 
+fprintf('Done drawing.');
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
+fprintf('Goodbye.');
