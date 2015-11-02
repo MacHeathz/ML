@@ -46,11 +46,27 @@ pause;
 % You will have X, y in your environment
 load('ex6data1.mat');
 
-fprintf('\nTraining Linear SVM ...\n')
+fprintf('\nTraining Linear SVM ... (C = 1)\n')
 
 % You should try to change the C value below and see how the decision
 % boundary varies (e.g., try C = 1000)
 C = 1;
+options = ["-q -h 1 -s 0 -t 0 -c " num2str(C)];
+model = svmtrain(y, X, options);
+
+% Sort out the bias and weights for use in visualizeBoundaryLinear function
+model.b = -model.rho;
+model.w = (model.sv_coef' * full(model.SVs));
+visualizeBoundaryLinear(X, y, model);
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
+
+fprintf('\nTraining Linear SVM ... (C = 1000)\n')
+
+% You should try to change the C value below and see how the decision
+% boundary varies (e.g., try C = 1000)
+C = 1000;
 options = ["-q -h 1 -s 0 -t 0 -c " num2str(C)];
 model = svmtrain(y, X, options);
 
@@ -159,8 +175,8 @@ model = svmtrain(y, X, ['-q -h 1 -s 0 -t 2 -g ' num2str(gamma) ' -c ' num2str(C)
 
 visualizeBoundary(X, y, model);
 
-fprintf('Done drawing.');
+fprintf('Done drawing.\n');
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
-fprintf('Goodbye.');
+fprintf('\nGoodbye.\n\n');
