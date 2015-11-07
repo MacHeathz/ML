@@ -41,8 +41,9 @@ for i=1:max_iters
     end
     
     % For each example in X, assign it to the closest centroid
-    idx = findClosestCentroids(X, centroids);
-    
+    [idx, dist] = findClosestCentroids(X, centroids);
+    fprintf('Current total X - Centroids distance: %d\n', sum(dist));
+
     % Optionally, plot progress here
     if plot_progress
         plotProgresskMeans(X, centroids, previous_centroids, idx, K, i);

@@ -6,6 +6,7 @@ function plotProgresskMeans(X, centroids, previous, idx, K, i)
 %   centroids, it also plots a line between the previous locations and
 %   current locations of the centroids.
 %
+% :TODO: plot 3D or larger dimensional data to 2D using PCA
 
 % Plot the examples
 plotDataPoints(X, idx, K);

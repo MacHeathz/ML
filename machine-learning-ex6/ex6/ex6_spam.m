@@ -135,7 +135,8 @@ pause;
 % Set the file to be read in (change this to spamSample2.txt,
 % emailSample1.txt or emailSample2.txt to see different predictions on
 % different emails types). Try your own emails as well!
-filename = 'emailSample1.txt';
+%filename = 'emailSample1.txt';
+filename = 'email_corpus/SpamAssassin/easy_ham/1262.6826573e4fe12221d02721aa9817da24';
 
 % Read and predict
 file_contents = readFile(filename);

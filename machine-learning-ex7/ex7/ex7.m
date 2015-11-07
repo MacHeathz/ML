@@ -132,7 +132,7 @@ max_iters = 10;
 initial_centroids = kMeansInitCentroids(X, K);
 
 % Run K-Means
-[centroids, idx] = runkMeans(X, initial_centroids, max_iters);
+[centroids, idx] = runkMeans(X, initial_centroids, max_iters, false);
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
