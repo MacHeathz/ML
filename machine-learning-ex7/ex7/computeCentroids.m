@@ -24,11 +24,12 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
-
 for k = 1:K
-  subset = X(idx==k, :);
-  centroids(k, :) = (sum(subset) / length(subset));
+  centroids(k, :) = mean(X(idx==k, :));
 end
+
+% Vectorization is possible, not any faster though (checked using tic..toc)
+%centroids = accumdim(idx, X, 1, K, @mean);
 
 % =============================================================
 

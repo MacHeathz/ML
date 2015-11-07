@@ -29,7 +29,7 @@ xs = size(X,1);
 for i = 1:xs
   shortest_dist = Inf;
   for k = 1:K
-    Diff = X(i,:) - centroids(k,:);
+    Diff = X(i, :) - centroids(k, :);
     d = sqrt(Diff * Diff');
     if (d < dist(i))
       dist(i) = d;
