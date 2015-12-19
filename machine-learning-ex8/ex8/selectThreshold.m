@@ -29,22 +29,20 @@ for epsilon = min(pval):stepsize:max(pval)
     tp = sum((predictions == 1) & (yval == 1));
     fn = sum((predictions == 0) & (yval == 1));
     
-    % Test to prevent divisions by zeros
-    if (tp+fp == 0)
-      precision = 0;
-    else
+    % Test to prevent divisions by zero
+    precision = 0;
+    recall = 0;
+    F1 = 0;
+    
+    if (tp+fp > 0)
       precision = tp/(tp+fp);
     end
     
-    if (tp+fn == 0)
-      recall = 0;
-    else
+    if (tp+fn > 0)
       recall = tp/(tp+fn);
     end
     
-    if (precision + recall == 0)
-      F1 = 0;
-    else
+    if (precision + recall > 0)
       F1 = (2 * precision * recall) / (precision + recall);
     end
 

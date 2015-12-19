@@ -40,20 +40,11 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+%If R is not given:
+%R = Y>0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+h_x = X * Theta';
+J = 1/2 * sum(R.*(h_x - Y).^2);
 
 % =============================================================
 
